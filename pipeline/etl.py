@@ -1,5 +1,5 @@
 """
-Pipeline ETL - Febara Data & AI Integration
+Pipeline ETL - Commercial Data & AI Integration
 =============================================
 Extrae datos de CRM (API), ERP (API) y ventas (CSV), los limpia/normaliza,
 y los carga en PostgreSQL de forma idempotente (se puede correr N veces

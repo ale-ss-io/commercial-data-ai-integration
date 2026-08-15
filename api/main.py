@@ -19,7 +19,7 @@ from api.security import verify_api_key
 from api.risk import compute_overdue_days, compute_risk_level
 
 
-app = FastAPI(title="Febara - Data & AI Integration API")
+app = FastAPI(title="Commercial Data & AI Integration API")
 
 
 # ---- Resiliencia: DB no disponible -> 503 en vez de 500 genérico ----
