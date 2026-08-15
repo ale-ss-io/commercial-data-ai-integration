@@ -406,6 +406,44 @@ Se priorizó la idempotencia porque los pipelines de integración se ejecutan co
 
 Se eligió una API key simple porque satisface el requisito de autenticación, manteniendo la implementación enfocada en el problema de integración de datos. Una implementación en producción requeriría una solución de identidad y control de acceso más robusta.
 
+## Bonus - Herramienta de IA (AI Tool)
+
+No implementado en el código, pero así se haría:
+
+**Idea:** el agente de IA no habla con PostgreSQL. Habla con dos funciones (tools), y esas funciones internamente llaman a la API que ya existe (`/customers/{id}/summary` y `/customers/at-risk`), usando la misma `API_KEY`.
+
+```python
+# ai_tools/tools.py
+import requests, os
+
+API_BASE_URL = "http://api:8000"
+API_KEY = os.environ["API_KEY"]
+
+def get_customer_summary(customer_id: str) -> dict:
+    """Tool que el agente puede invocar."""
+    resp = requests.get(
+        f"{API_BASE_URL}/customers/{customer_id}/summary",
+        headers={"X-API-Key": API_KEY},
+        timeout=5,
+    )
+    resp.raise_for_status()
+    return resp.json()
+
+def get_customers_at_risk() -> list:
+    """Tool que el agente puede invocar."""
+    resp = requests.get(
+        f"{API_BASE_URL}/customers/at-risk",
+        headers={"X-API-Key": API_KEY},
+        timeout=5,
+    )
+    resp.raise_for_status()
+    return resp.json()
+```
+
+Estas dos funciones se registran como tools en el LLM (function calling de OpenAI/Anthropic, o como tools de un servidor MCP). El modelo nunca ve la contraseña de la base de datos ni escribe SQL — solo llama a `get_customer_summary("C001")` y recibe el JSON de vuelta.
+
+**Por qué así:** reutiliza toda la lógica de negocio que ya está en la API (cálculo de riesgo, validaciones), y evita que el LLM tenga cualquier tipo de acceso a la base de datos.
+
 ## Limitaciones y Mejoras Futuras
 
 Esta implementación se enfoca intencionalmente en los requisitos principales del ejercicio.
