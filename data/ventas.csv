@@ -1,0 +1,19 @@
+customer_id,date,product,quantity,unit_price
+C001,2026-05-12,Producto A,3,500
+C001,2026-05-12,Producto A,3,500
+C001,05/20/2026,Producto B,1,800
+C002,2026-04-10,Producto C,5,300
+C002,2026-06-01,Producto A,2,500
+C002,,Producto B,1,800
+C003,2026-03-15,Producto A,4,500
+C004,2026-07-02,Producto C,2,300
+C004,20-07-2026,Producto D,1,1200
+C005,2026-05-25,Producto A,6,500
+C005,2026-06-15,Producto B,3,800
+C005,2026-06-15,Producto B,3,800
+C006,2026-02-20,Producto C,1,300
+C007,2026-07-10,Producto A,2,500
+C007,2026-07-18,Producto D,1,1200
+C008,2026-06-30,Producto B,2,800
+C008,2026-07-15,,3,300
+C001,2026-07-28,Producto D,1,1200
